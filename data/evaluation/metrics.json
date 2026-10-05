@@ -1,0 +1,198 @@
+{
+  "generated": "2026-10-04 18:22:03",
+  "pipeline": "geolens-pipeline-0.1.0",
+  "embedder": "descriptor-v1",
+  "levir_pixel": [
+    {
+      "pair": "test_2_0000_0000.png",
+      "fpr": 0.102,
+      "precision": 0.715,
+      "recall": 0.76,
+      "f1": 0.737,
+      "iou": 0.583,
+      "truth_frac": 0.252,
+      "pred_frac": 0.268
+    },
+    {
+      "pair": "test_2_0000_0512.png",
+      "fpr": 0.104,
+      "precision": 0.631,
+      "recall": 0.792,
+      "f1": 0.703,
+      "iou": 0.542,
+      "truth_frac": 0.183,
+      "pred_frac": 0.23
+    },
+    {
+      "pair": "test_7_0256_0512.png",
+      "fpr": 0.076,
+      "precision": 0.628,
+      "recall": 0.808,
+      "f1": 0.707,
+      "iou": 0.546,
+      "truth_frac": 0.137,
+      "pred_frac": 0.176
+    }
+  ],
+  "levir_pixel_mean": {
+    "precision": 0.658,
+    "recall": 0.787,
+    "f1": 0.716,
+    "iou": 0.557,
+    "fpr": 0.094
+  },
+  "levir_caveat": "Thresholds were tuned on these same 3 sample pairs, so the numbers are optimistic. The full LEVIR-CD test set (not downloadable here) is the right place to measure.",
+  "scenarios": [
+    {
+      "site": "levir-series-cloud",
+      "name": "Housing development, with cloudy interim pass",
+      "scenario": "cloud-then-real-change",
+      "expected_date": "2016-06-01",
+      "got_date": "2016-06-01",
+      "expected_type": "construction",
+      "got_type": "construction",
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "levir-series-shift",
+      "name": "Subdivision, misregistered interim pass",
+      "scenario": "misregistration-then-real-change",
+      "expected_date": "2018-06-01",
+      "got_date": "2018-06-01",
+      "expected_type": "construction",
+      "got_type": "construction",
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "levir-test2-a",
+      "name": "Housing development, chip A",
+      "scenario": "real-pair",
+      "expected_date": "2018-06-01",
+      "got_date": "2018-06-01",
+      "expected_type": "construction",
+      "got_type": "construction",
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "levir-test2-b",
+      "name": "Housing development, chip B",
+      "scenario": "real-pair",
+      "expected_date": "2018-06-01",
+      "got_date": "2018-06-01",
+      "expected_type": "construction",
+      "got_type": "construction",
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "levir-test7",
+      "name": "Subdivision with new access road",
+      "scenario": "real-pair",
+      "expected_date": "2018-06-01",
+      "got_date": "2018-06-01",
+      "expected_type": "construction",
+      "got_type": "construction",
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "ls-seasonal",
+      "name": "Cropland: seasonal change only",
+      "scenario": "seasonal-only",
+      "expected_date": null,
+      "got_date": null,
+      "expected_type": null,
+      "got_type": null,
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "ls-shift-only",
+      "name": "Reservoir shore: registration offset only",
+      "scenario": "misregistration-only",
+      "expected_date": null,
+      "got_date": null,
+      "expected_type": null,
+      "got_type": null,
+      "false_alarm_dates": [],
+      "pass": true
+    },
+    {
+      "site": "ls-urban-growth",
+      "name": "Cropland near Ciudad del Este: simulated urban growth",
+      "scenario": "cloud-then-growth",
+      "expected_date": "2022-05-18",
+      "got_date": "2022-05-18",
+      "expected_type": "construction",
+      "got_type": "construction",
+      "false_alarm_dates": [],
+      "pass": true
+    }
+  ],
+  "scenario_summary": {
+    "passed": 8,
+    "total": 8
+  },
+  "scenario_caveat": "Regression suite: the pipeline was tuned until these cases passed, and several epochs are synthetic. It shows the logic works as designed, not field accuracy.",
+  "retrieval": {
+    "n_queries": 120,
+    "index_size": 337,
+    "perturbation_recall": {
+      "flip": {
+        "recall@1": 0.742,
+        "recall@5": 0.925,
+        "recall@10": 0.967
+      },
+      "rot90": {
+        "recall@1": 0.725,
+        "recall@5": 0.908,
+        "recall@10": 0.975
+      },
+      "brightness": {
+        "recall@1": 0.992,
+        "recall@5": 1.0,
+        "recall@10": 1.0
+      },
+      "noise": {
+        "recall@1": 0.925,
+        "recall@5": 0.992,
+        "recall@10": 0.992
+      },
+      "shift": {
+        "recall@1": 1.0,
+        "recall@5": 1.0,
+        "recall@10": 1.0
+      }
+    },
+    "label_coherence_p@10": 0.776,
+    "label_coherence_random_baseline": 0.508,
+    "search_ms_median": 0.7,
+    "search_ms_p95": 0.9,
+    "caveats": [
+      "Perturbation recall asks whether a distorted copy of a tile finds the original; it measures robustness, not semantic quality.",
+      "Label coherence uses cover classes from the same colour rules that feed the descriptor, so it overstates semantic accuracy. No human-labelled retrieval benchmark is available offline."
+    ]
+  },
+  "system": {
+    "scenes": 2,
+    "tiles": 337,
+    "indexed_area_km2": 6151.8,
+    "ingest_seconds_total": 14.4,
+    "ingest_seconds_per_scene": 7.2,
+    "ingest_ms_per_tile": 42.7,
+    "storage_mb": {
+      "processed_imagery": 53.4,
+      "vector_index": 0.5,
+      "raw_inputs": 31.6
+    },
+    "hardware": {
+      "cpu_cores": 2,
+      "platform": "Linux-6.18.44-fc-v64-x86_64-with-glibc2.39",
+      "python": "3.13.16",
+      "gpu": "none used"
+    }
+  }
+}
